@@ -14,4 +14,4 @@ BioTrack is a diagnostic center application built with Django and React. It incl
 ### Setup
 1. Clone the repository:
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/sameermathad/biotrack.git
