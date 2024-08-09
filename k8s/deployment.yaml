@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient-management-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: patient-management
+  template:
+    metadata:
+      labels:
+        app: patient-management
+    spec:
+      containers:
+      - name: patient-management
+        image: your_docker_image:latest
+        ports:
+        - containerPort: 8000

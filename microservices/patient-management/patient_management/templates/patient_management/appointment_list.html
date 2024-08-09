@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointments for {{ patient.first_name }} {{ patient.last_name }}</title>
+</head>
+<body>
+    <h1>Appointments for {{ patient.first_name }} {{ patient.last_name }}</h1>
+    <a href="{% url 'add_appointment' patient.pk %}">Add Appointment</a>
+    <ul>
+        {% for appointment in appointments %}
+            <li>{{ appointment.date }} - {{ appointment.reason }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
