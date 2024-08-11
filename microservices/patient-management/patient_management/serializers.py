@@ -13,6 +13,9 @@ class MedicalHistorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class AppointmentSerializer(serializers.ModelSerializer):
+    patient_id = serializers.PrimaryKeyRelatedField(queryset=Patient.objects.all(), source='patient', write_only=True)
+    patient = PatientSerializer(read_only=True)  # Keep this to include patient details in the response
+
     class Meta:
         model = Appointment
         fields = '__all__'
