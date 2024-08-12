@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     'patient_management',  # Your app
     'rest_framework',
     'corsheaders',
+    
 
 
 ]
@@ -84,4 +85,16 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'patient_management.authentication.CustomTokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'patient_management.permissions.IsValidUser',
+    ),
+}
+
+
 

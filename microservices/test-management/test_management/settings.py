@@ -82,3 +82,14 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'test_management.authentication.CustomTokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'test_management.permissions.IsValidUser',
+    ),
+}
