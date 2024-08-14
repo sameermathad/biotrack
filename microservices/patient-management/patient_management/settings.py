@@ -1,4 +1,6 @@
 from pathlib import Path
+import dj_database_url
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -52,16 +54,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'patient_management.wsgi.application'
+ASGI_APPLICATION = 'patient_management.asgi.application'
+
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'biotrack',
-        'USER': 'sameeradmin',
-        'PASSWORD': 'sameer',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -95,6 +94,8 @@ REST_FRAMEWORK = {
         'patient_management.permissions.IsValidUser',
     ),
 }
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 
