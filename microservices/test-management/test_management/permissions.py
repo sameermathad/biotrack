@@ -12,7 +12,7 @@ class IsValidUser(BasePermission):
                 token = parts[1]
                 print("Token extracted:", token)  # Add this line for debugging
                 response = requests.get(
-                    'http://127.0.0.1:8002/api/validate-user/',
+                    'http://user-management-biotrack-b1763a64aa28.herokuapp.com/api/validate-user/',
                     headers={'Authorization': f'Bearer {token}'}
                 )
                 print("Token validation response status:", response.status_code)  # Add this line for debugging

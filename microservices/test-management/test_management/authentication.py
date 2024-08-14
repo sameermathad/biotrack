@@ -20,7 +20,7 @@ class CustomTokenAuthentication(BaseAuthentication):
 
         # Validate the token with the user-management service
         response = requests.get(
-            'http://127.0.0.1:8002/api/validate-user/',
+            'http://user-management-biotrack-b1763a64aa28.herokuapp.com/api/validate-user/',
             headers={'Authorization': f'Bearer {token}'}
         )
 
