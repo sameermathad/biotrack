@@ -5,8 +5,14 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'your-secret-key'
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
+
+ENVIRONMENT = os.getenv('DJANGO_ENV', 'development')
+
+if ENVIRONMENT == 'production':
+    ALLOWED_HOSTS = ['test-management-biotrack-d934c9e26f2a.herokuapp.com']
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -18,8 +24,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'test_management',
     'corsheaders',
-
-
 ]
 
 MIDDLEWARE = [
@@ -55,22 +59,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'test_management.wsgi.application'
 ASGI_APPLICATION = 'test_management.asgi.application'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'biotrack',
-#         'USER': 'sameeradmin',
-#         'PASSWORD': 'sameer',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
-    )
-}
+# Database configuration based on environment
+if ENVIRONMENT == 'production':
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'biotrack',
+            'USER': 'sameeradmin',
+            'PASSWORD': 'sameer',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -86,12 +90,12 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
-
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -101,5 +105,3 @@ REST_FRAMEWORK = {
         'test_management.permissions.IsValidUser',
     ),
 }
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

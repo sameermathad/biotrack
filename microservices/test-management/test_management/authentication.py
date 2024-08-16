@@ -1,7 +1,7 @@
-# patient_management/authentication.py
 from rest_framework.authentication import BaseAuthentication
 from rest_framework import exceptions
 import requests
+import os
 
 class CustomTokenAuthentication(BaseAuthentication):
     def authenticate(self, request):
@@ -18,9 +18,15 @@ class CustomTokenAuthentication(BaseAuthentication):
         token = parts[1]
         print("Token extracted:", token)  # Debugging
 
+        # Determine the correct URL based on environment
+        if os.getenv('DJANGO_ENV') == 'production':
+            validate_url = 'https://user-management-biotrack-b1763a64aa28.herokuapp.com/api/validate-user/'
+        else:
+            validate_url = 'http://127.0.0.1:8000/api/validate-user/'
+
         # Validate the token with the user-management service
         response = requests.get(
-            'http://user-management-biotrack-b1763a64aa28.herokuapp.com/api/validate-user/',
+            validate_url,
             headers={'Authorization': f'Bearer {token}'}
         )
 
@@ -34,5 +40,4 @@ class CustomTokenAuthentication(BaseAuthentication):
         if not user_id:
             raise exceptions.AuthenticationFailed('User not found.')
 
-        # Here we don't need to fetch the User model, just return the user data
         return (user_data, None)

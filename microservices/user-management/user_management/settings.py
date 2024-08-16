@@ -1,10 +1,20 @@
+import os
 from pathlib import Path
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'your-secret-key'
 DEBUG = True
-ALLOWED_HOSTS = []
+
+# Determine the environment (development or production)
+ENVIRONMENT = os.getenv('DJANGO_ENV', 'development')
+
+# Allowed hosts
+if ENVIRONMENT == 'production':
+    ALLOWED_HOSTS = ['user-management-biotrack-b1763a64aa28.herokuapp.com']
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -17,9 +27,7 @@ INSTALLED_APPS = [
     'user_management',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
-
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -30,8 +38,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-
 ]
 
 ROOT_URLCONF = 'user_management.urls'
@@ -55,16 +61,27 @@ TEMPLATES = [
 WSGI_APPLICATION = 'user_management.wsgi.application'
 ASGI_APPLICATION = 'user_management.asgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'biotrack',
-        'USER': 'sameeradmin',
-        'PASSWORD': 'sameer',
-        'HOST': 'localhost',
-        'PORT': '5432',
+# Database configuration
+if ENVIRONMENT == 'production':
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL')
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'biotrack',
+            'USER': 'sameeradmin',
+            'PASSWORD': 'sameer',
+            'HOST': 'localhost',
+            'PORT': '5432',
+            'OPTIONS': {
+            'options': '-c timezone=Asia/Kolkata'
+             },
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -74,12 +91,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
@@ -90,7 +108,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
-
 
 from datetime import timedelta
 
@@ -107,5 +124,4 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
-
 AUTH_USER_MODEL = 'user_management.User'

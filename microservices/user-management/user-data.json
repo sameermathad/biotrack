@@ -1,0 +1,93 @@
+[
+    {
+        "model": "user_management.user",
+        "pk": 7,
+        "fields": {
+            "last_login": null,
+            "is_superuser": true,
+            "username": "sameermathad01",
+            "first_name": "fsadf",
+            "last_name": "dfa",
+            "email": "dsd@sdfa.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-08-12T20:51:29.208027Z",
+            "role": 4,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+   
+    {
+        "model": "user_management.user",
+        "pk": 2,
+        "fields": {
+            "last_login": null,
+            "is_superuser": true,
+            "username": "sameermathadbio",
+            "first_name": "Tom",
+            "last_name": "Cruise",
+            "email": "sameer@biotrack.in",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-08-12T17:07:03.917570Z",
+            "role": 6,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user_management.user",
+        "pk": 9,
+        "fields": {
+            "last_login": null,
+            "is_superuser": true,
+            "username": "sameermathad02",
+            "first_name": "fasdf",
+            "last_name": "dadfs",
+            "email": "faf@dfsad.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-08-13T09:46:48.946869Z",
+            "role": 5,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user_management.user",
+        "pk": 10,
+        "fields": {
+            "last_login": null,
+            "is_superuser": true,
+            "username": "sameermathad03",
+            "first_name": "sfad",
+            "last_name": "fadsf",
+            "email": "sam@sam.cojm",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-08-13T10:12:46.124950Z",
+            "role": 3,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user_management.user",
+        "pk": 3,
+        "fields": {
+            "last_login": null,
+            "is_superuser": true,
+            "username": "sam",
+            "first_name": "Test",
+            "last_name": "User",
+            "email": "sam@biotrack.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-08-09T22:35:01.360981Z",
+            "role": 8,
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]
