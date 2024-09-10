@@ -3,7 +3,7 @@ from .models import Report, ReportTemplate, ReportAccessLog
 import requests
 
 class ReportAdmin(admin.ModelAdmin):
-    list_display = ('id', 'patient_id', 'test_result', 'get_created_by', 'created_at', 'status')
+    list_display = ('id', 'patient_id', 'get_created_by', 'created_at', 'status')
     list_filter = ('status', 'created_at')
     search_fields = ('patient_id',)
 
